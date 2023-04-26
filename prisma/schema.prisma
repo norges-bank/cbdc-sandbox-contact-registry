@@ -1,0 +1,43 @@
+generator client {
+  provider        = "prisma-client-js"
+  // previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "postgresql"
+  url                  = env("DATABASE_URL")
+}
+
+model Bank {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  name      String    @unique
+  account   Account[]
+}
+
+model Account {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  ethAddress   String   @unique
+  alias        String?
+  bank         Bank     @relation(fields: [bankId], references: [id])
+  bankId       Int
+  owner        Contact  @relation(fields: [ownerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ownerId      Int
+  defaultOwner Contact? @relation("DefaultAccount")
+  keystoreFile String?  
+}
+
+model Contact {
+  id               Int       @id @default(autoincrement())
+  createdAt        DateTime  @default(now())
+  idNumber         String    @unique
+  name             String
+  alias            String?
+  phone            String?
+  phoneExtension   String?
+  email            String?   @unique
+  defaultAccount   Account?  @relation("DefaultAccount", fields: [defaultAccountId], references: [id])
+  defaultAccountId Int?      @unique
+  accounts         Account[]
+}

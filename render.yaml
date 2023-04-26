@@ -1,0 +1,24 @@
+services:
+  # DEV SERVER
+  - type: web
+    name: dsp-contact-registry
+    env: node
+    branch: main
+    region: frankfurt
+    buildCommand: 'npm install; npm run build; npx prisma generate; npx prisma db seed'
+    startCommand: 'npm run start'
+    plan: Starter
+    pullRequestPreviewsEnabled: true
+    domains:
+      - contact-registry.dsp.symfoni.dev
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: contact-registry-db-dev
+          property: connectionString
+    
+databases:
+  # DEV DB
+  - name: contact-registry-db-dev
+    region: frankfurt
+    plan: Starter
