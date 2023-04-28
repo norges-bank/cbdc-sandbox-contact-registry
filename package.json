@@ -17,7 +17,8 @@
     "test:server": "npx playwright test --reporter=line",
     "test:ci": "npx playwright test",
     "postinstall": "npx playwright install",
-    "test": "start-server-and-test dev http://localhost:3000 test:ci"
+    "test": "start-server-and-test dev http://localhost:3000 test:ci",
+    "docker:postgres": "docker run --name contact-registry-postgres -e POSTGRES_PASSWORD=PASSWORD -e POSTGRES_USER=USER -p 5432:5432 -d postgres"
   },
   "dependencies": {
     "@prisma/client": "4.3.1",
