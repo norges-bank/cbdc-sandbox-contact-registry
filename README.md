@@ -1,5 +1,3 @@
-[![Playwright Tests](https://github.com/symfoni/dsp-contact-registry/actions/workflows/playwright.yml/badge.svg)](https://github.com/symfoni/dsp-contact-registry/actions/workflows/playwright.yml)
-
 # Contact Registry
 
 A simple contact registry application built using Next.js and Prisma.
